@@ -10,13 +10,14 @@ int main(int argc, char **argv){
   int N;
   printf("Proszę podać wielkość planszy:");
   scanf("%d", &N);
- gra *G = utworz(N);
- wypisz_plansze(G, N);
- int wiersz, kolumna;
-
+  gra *G = utworz(N);
+  wypisz_plansze(G, N);
+  int wiersz, kolumna;
+  int ile = mozliwe_ruchy(G, N);
+  printf("%d\n", ile);
 
  {//POLE BOJOWE / STREFA 51
-  listaruchow *l = ruchy_dostepne(G, N);
+  listaruchow *l = ruchy_dostepne(G, N, ile);
   printf("%s\n%s", l->ruchy->kto, l->ruchy->gdzie);
 return 0;
 

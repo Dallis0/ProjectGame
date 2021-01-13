@@ -59,7 +59,6 @@ Ruch *dane(gra *G, int wiersz, int kolumna){
   return glowa;
 }
 
-
 listaruchow *wstaw_na_puste(gra *G, int wiersz , int kolumna){
   listaruchow *glowa;
   glowa = (listaruchow*) malloc(sizeof(listaruchow));
@@ -69,23 +68,33 @@ listaruchow *wstaw_na_puste(gra *G, int wiersz , int kolumna){
   return glowa;
 }
 
-listaruchow *ruchy_dostepne(gra *G, int N){
+listaruchow *ruchy_dostepne(gra *G, int N, int ile){
+  printf("lol1\n");
   listaruchow *glowa;
+  printf("lol2\n");
   glowa = (listaruchow*) malloc(sizeof(listaruchow));
-  glowa->ruchy = (Ruch*) malloc(sizeof(Ruch));
+  printf("lol3\n");
+  glowa->ruchy = (Ruch*) malloc(sizeof(Ruch) * ile);
+  printf("lol4\n");
   glowa = NULL;
+  printf("lol5\n");
+  printf("lol6\n");
   for(int i=0; i<N; i++)
     for(int j=0;j<N;j++){
       if(G->pole[i][j] == ' '){
+        printf("lol\n");
       glowa->ruchy = dane(G, i, j);
+      printf("lol\n");
       glowa = glowa->nast;  
       }  
+
     }
 
   return glowa;
 }
 
-void mozliwe_ruchy(gra *G, int N){
+int mozliwe_ruchy(gra *G, int N){
+  int a = 0;
   printf("Teraz ruch: %s\nDostępne ruchy:\n", G->ruch);
   for(int i=0;i<N;i++)
   {
@@ -93,6 +102,7 @@ void mozliwe_ruchy(gra *G, int N){
       switch(G->pole[i][j]){
         case ' ':
           printf("%s   ", wstaw_na_puste(G, i, j)->ruchy->gdzie);
+          a++;
           break;
         case 'X':
           break;
@@ -102,6 +112,7 @@ void mozliwe_ruchy(gra *G, int N){
     }
   }
   printf("\n");
+  return a;
 }
 
 gra *wstaw(gra *G, int N, int wiersz, int kolumna){
