@@ -10,6 +10,8 @@ Ruch *dane(gra *G, int wiersz, int kolumna);
 
 listaruchow *wstaw_na_puste(gra *G, int wiersz , int kolumna);
 
+listaruchow *ruchy_dostepne(gra *G, int N);
+
 int wynik(int a);
 
 int ocena(gra *G, int N);

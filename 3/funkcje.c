@@ -69,6 +69,22 @@ listaruchow *wstaw_na_puste(gra *G, int wiersz , int kolumna){
   return glowa;
 }
 
+listaruchow *ruchy_dostepne(gra *G, int N){
+  listaruchow *glowa;
+  glowa = (listaruchow*) malloc(sizeof(listaruchow));
+  glowa->ruchy = (Ruch*) malloc(sizeof(Ruch));
+  glowa = NULL;
+  for(int i=0; i<N; i++)
+    for(int j=0;j<N;j++){
+      if(G->pole[i][j] == ' '){
+      glowa->ruchy = dane(G, i, j);
+      glowa = glowa->nast;  
+      }  
+    }
+
+  return glowa;
+}
+
 void mozliwe_ruchy(gra *G, int N){
   printf("Teraz ruch: %s\nDostępne ruchy:\n", G->ruch);
   for(int i=0;i<N;i++)
@@ -203,6 +219,17 @@ int ocena(gra *G, int N){
 
 //   printf("\nWybierz, kształt jakim chcesz grać wpisująć:\n./gra krzyzyk\nlub\n./gra kolko\n");
 // }
+
+int negamax(gra *G, int glebokosc, int alfa, int beta, int N){
+  if (!glebokosc)
+  return ocena(G, N);
+
+  int nowaocena;
+  int ocenawezla = -1;
+  
+
+return 0;
+}
 
 int wynik(int a){
   if(a == 1){

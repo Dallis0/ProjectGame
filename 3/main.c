@@ -14,6 +14,19 @@ int main(int argc, char **argv){
  wypisz_plansze(G, N);
  int wiersz, kolumna;
 
+
+ {//POLE BOJOWE / STREFA 51
+  listaruchow *l = ruchy_dostepne(G, N);
+  printf("%s\n%s", l->ruchy->kto, l->ruchy->gdzie);
+return 0;
+
+
+
+ }
+
+
+
+/*
   for (int i = 0; i< pow(N, 2); i++){
     
     mozliwe_ruchy(G, N);
@@ -34,6 +47,6 @@ int main(int argc, char **argv){
     if(wynik(ocena(G, N)) == 1){
       break;
     }
-  }
+  }*/
 return 0;
 }

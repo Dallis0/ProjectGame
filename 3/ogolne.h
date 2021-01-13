@@ -16,7 +16,7 @@ typedef struct _Ruch{
 
 typedef struct _listaruchow{
    Ruch *ruchy;
-   struct listaruchow *nast;
+   struct _listaruchow *nast;
 
 } listaruchow;
 
