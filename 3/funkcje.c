@@ -47,53 +47,66 @@ void wypisz_plansze(gra *G, int N){
 }
 
 
-Ruch *dane(gra *G, int wiersz, int kolumna){
-	Ruch *glowa;
-  glowa = (Ruch*) malloc(sizeof(Ruch));
-  glowa->kto = (char*) malloc(sizeof(char));
-  glowa->gdzie = (char*) malloc(sizeof(char) *3);
-
-  glowa->kto = G->ruch;
-  sprintf(glowa->gdzie, "%d %d", wiersz, kolumna);
-  
-  return glowa;
-}
-
 listaruchow *wstaw_na_puste(gra *G, int wiersz , int kolumna){
   listaruchow *glowa;
   glowa = (listaruchow*) malloc(sizeof(listaruchow));
-  glowa->ruchy = (Ruch*) malloc(sizeof(Ruch));
-  glowa->ruchy = dane(G, wiersz, kolumna);
+  glowa->gdzie = (char*) malloc(sizeof(char));
+  sprintf(glowa->gdzie, "%d %d", wiersz, kolumna);
 
   return glowa;
+}
+
+listaruchow *ostatni_r(listaruchow *glowa)
+{
+    if(glowa != NULL){
+        while(glowa->nast != NULL)
+            glowa = glowa->nast;
+        return glowa;
+    }
+    else 
+        return NULL;
 }
 
 listaruchow *ruchy_dostepne(gra *G, int N, int ile){
-  printf("lol1\n");
-  listaruchow *glowa;
-  printf("lol2\n");
-  glowa = (listaruchow*) malloc(sizeof(listaruchow));
-  printf("lol3\n");
-  glowa->ruchy = (Ruch*) malloc(sizeof(Ruch) * ile);
-  printf("lol4\n");
-  glowa = NULL;
-  printf("lol5\n");
-  printf("lol6\n");
-  for(int i=0; i<N; i++)
-    for(int j=0;j<N;j++){
+  int i,j;
+  listaruchow *glowa = NULL;
+  listaruchow *lista = NULL;
+  listaruchow *r = NULL;
+
+  for(i=0;i<N;i++)
+    for(j=0;j<N;j++){
       if(G->pole[i][j] == ' '){
-        printf("lol\n");
-      glowa->ruchy = dane(G, i, j);
-      printf("lol\n");
-      glowa = glowa->nast;  
-      }  
+        lista = (listaruchow*) malloc(sizeof(listaruchow));
+        lista->nast = NULL;
 
+        if(glowa == NULL)
+          glowa = lista;
+        else{
+          r = glowa;
+          while(r->nast !=NULL)
+            r = r->nast;
+          r->nast = lista;
+        }
+        lista->gdzie = (char*) malloc(sizeof(char) *3);
+        sprintf(lista->gdzie, "%d %d", i, j);
+      }
     }
-
+  wypisz_ruchy(glowa, G, N);
   return glowa;
 }
 
-int mozliwe_ruchy(gra *G, int N){
+void wypisz_ruchy(listaruchow *lista, gra *G, int N){
+  listaruchow *r = lista;
+  int i,ile;
+  ile = ile_ruchow(G, N);
+  for(i=0;i<ile; i++){
+  printf("%s   ", r->gdzie);
+  r = r->nast;
+  }
+  printf("\n");
+}
+
+int ile_ruchow(gra *G, int N){
   int a = 0;
   printf("Teraz ruch: %s\nDostępne ruchy:\n", G->ruch);
   for(int i=0;i<N;i++)
@@ -101,7 +114,6 @@ int mozliwe_ruchy(gra *G, int N){
     for(int j=0;j<N;j++){
       switch(G->pole[i][j]){
         case ' ':
-          printf("%s   ", wstaw_na_puste(G, i, j)->ruchy->gdzie);
           a++;
           break;
         case 'X':
@@ -111,7 +123,6 @@ int mozliwe_ruchy(gra *G, int N){
       }
     }
   }
-  printf("\n");
   return a;
 }
 
@@ -223,13 +234,6 @@ int ocena(gra *G, int N){
   }
   return 0;
 }
-
-// void start(gra G){
-//   printf("\nWitaj w ""Kołko i krzyżyk""!\n\n");
-//   wypisz_plansze(utworz(&G));
-
-//   printf("\nWybierz, kształt jakim chcesz grać wpisująć:\n./gra krzyzyk\nlub\n./gra kolko\n");
-// }
 
 int negamax(gra *G, int glebokosc, int alfa, int beta, int N){
   if (!glebokosc)
