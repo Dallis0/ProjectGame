@@ -10,12 +10,12 @@ typedef struct _gra{
    char **pole, *ruch;
 } gra;
 
-typedef struct _Ruch{
-   char *kto, *gdzie;
-} Ruch;
-
 typedef struct _listaruchow{
+<<<<<<< HEAD
    Ruch ruchy;
+=======
+   char *gdzie;
+>>>>>>> 52af5c4a728d53be6025a58c926ecafba2af2208
    struct _listaruchow *nast;
 
 } listaruchow;
