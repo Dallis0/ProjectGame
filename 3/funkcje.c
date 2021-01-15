@@ -47,47 +47,52 @@ void wypisz_plansze(gra *G, int N){
 }
 
 
-Ruch *dane(gra *G, int wiersz, int kolumna){
-	Ruch *glowa;
-  glowa = (Ruch*) malloc(sizeof(Ruch));
-  glowa->kto = (char*) malloc(sizeof(char));
-  glowa->gdzie = (char*) malloc(sizeof(char) *3);
+Ruch dane(gra *G, int wiersz, int kolumna){
+	Ruch glowa;
+   printf("loldane1\n");
+  //glowa = (Ruch*) malloc(sizeof(Ruch));
+   printf("loldane2\n");
+  glowa.kto = (char*) malloc(sizeof(char));
+   printf("loldane3\n");
+  glowa.gdzie = (char*) malloc(sizeof(char) *3);
+   printf("loldane4\n");
 
-  glowa->kto = G->ruch;
-  sprintf(glowa->gdzie, "%d %d", wiersz, kolumna);
-  
+  glowa.kto = G->ruch;
+   printf("loldane5\n");
+  sprintf(glowa.gdzie, "%d %d", wiersz, kolumna);
+   printf("loldane6\n");
+   
   return glowa;
 }
 
 listaruchow *wstaw_na_puste(gra *G, int wiersz , int kolumna){
   listaruchow *glowa;
   glowa = (listaruchow*) malloc(sizeof(listaruchow));
-  glowa->ruchy = (Ruch*) malloc(sizeof(Ruch));
+  //glowa->ruchy = (Ruch*) malloc(sizeof(Ruch));
   glowa->ruchy = dane(G, wiersz, kolumna);
 
   return glowa;
 }
 
 listaruchow *ruchy_dostepne(gra *G, int N, int ile){
-  printf("lol1\n");
+   printf("lol1\n");
   listaruchow *glowa;
-  printf("lol2\n");
-  glowa = (listaruchow*) malloc(sizeof(listaruchow));
-  printf("lol3\n");
-  glowa->ruchy = (Ruch*) malloc(sizeof(Ruch) * ile);
-  printf("lol4\n");
+   printf("lol2\n");
+  glowa = (listaruchow*) malloc(sizeof(listaruchow) * ile);
+   printf("lol3\n");
+  //glowa->ruchy = (Ruch*) malloc(sizeof(Ruch) * ile);
+   printf("lol4\n");
   glowa = NULL;
-  printf("lol5\n");
-  printf("lol6\n");
+   printf("lol5\n");
+   printf("lol6\n");
   for(int i=0; i<N; i++)
     for(int j=0;j<N;j++){
       if(G->pole[i][j] == ' '){
-        printf("lol\n");
+        printf("lol7\n");
       glowa->ruchy = dane(G, i, j);
-      printf("lol\n");
-      glowa = glowa->nast;  
-      }  
-
+       printf("lol8\n");
+      glowa = glowa->nast;
+      }
     }
 
   return glowa;
@@ -101,7 +106,7 @@ int mozliwe_ruchy(gra *G, int N){
     for(int j=0;j<N;j++){
       switch(G->pole[i][j]){
         case ' ':
-          printf("%s   ", wstaw_na_puste(G, i, j)->ruchy->gdzie);
+          printf("%s   ", wstaw_na_puste(G, i, j)->ruchy.gdzie);
           a++;
           break;
         case 'X':

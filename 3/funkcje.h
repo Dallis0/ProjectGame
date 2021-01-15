@@ -6,7 +6,7 @@ gra *utworz(int N);
 
 void start(gra G);
 
-Ruch *dane(gra *G, int wiersz, int kolumna);
+Ruch dane(gra *G, int wiersz, int kolumna);
 
 listaruchow *wstaw_na_puste(gra *G, int wiersz , int kolumna);
 

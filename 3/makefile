@@ -12,3 +12,6 @@ clean:
 
 test: gra
 	./gra
+
+test-memory: gra
+	valgrind ./gra

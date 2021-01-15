@@ -15,7 +15,7 @@ typedef struct _Ruch{
 } Ruch;
 
 typedef struct _listaruchow{
-   Ruch *ruchy;
+   Ruch ruchy;
    struct _listaruchow *nast;
 
 } listaruchow;
