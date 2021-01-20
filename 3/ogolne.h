@@ -11,11 +11,9 @@ typedef struct _gra{
 } gra;
 
 typedef struct _listaruchow{
-<<<<<<< HEAD
-   Ruch ruchy;
-=======
    char *gdzie;
->>>>>>> 52af5c4a728d53be6025a58c926ecafba2af2208
+   int x;
+   int y;
    struct _listaruchow *nast;
 
 } listaruchow;

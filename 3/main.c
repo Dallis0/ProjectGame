@@ -12,8 +12,8 @@ int main(int argc, char **argv){
   scanf("%d", &N);
   gra *G = NULL;
   G = utworz(N);
-  wypisz_plansze(G, N);
   int wiersz, kolumna;
+  
   /*
  {//POLE BOJOWE / STREFA 51
   listaruchow *l = NULL;
@@ -24,28 +24,43 @@ int main(int argc, char **argv){
 return 0;
  }*/
  listaruchow *lista = NULL;
- int ile;
+ int ile, a;
   for (int i = 0; i< pow(N, 2); i++){
     ile = ile_ruchow(G, N);
+    wypisz_plansze(G,N);
     lista = ruchy_dostepne(G, N, ile);
-    A:
-    printf("Ruch:\n");
-    scanf("%d %d", &wiersz, &kolumna);
-    switch(G->pole[wiersz][kolumna]){
-    case ' ':
-    wypisz_plansze(wstaw(G, N, wiersz, kolumna), N);
-    break;
-    case 'X':
-    printf("Nie da się wykonać ruchu!\n");
-      goto A;
-    case 'O':
-    printf("Nie da się wykonać ruchu!\n");
-      goto A;
+    wypisz_ruchy(lista, G, N);
+    if(strcmp(G->ruch, "X") == 0){
+      printf("Tura negamaxa\n");
+      a=negamax(G, 3, -1, 1, N);
+      printf("a %d\n", a);
+      //wypisz_plansze(G,N);
+      G->ruch = "O";
+      if(wynik(ocena(G,N))==1){
+        break;
+      }
+    }
+    else if(strcmp(G->ruch, "O") == 0){
+      A:
+      printf("Ruch:\n");
+      scanf("%d %d", &wiersz, &kolumna);
+      switch(G->pole[wiersz][kolumna]){
+      case ' ':
+      G = wstaw(G, N, wiersz, kolumna);
+      break;
+      case 'X':
+      printf("Nie da się wykonać ruchu!\n");
+        goto A;
+      case 'O':
+      printf("Nie da się wykonać ruchu!\n");
+        goto A;
+      }
     }
     printf("\n\n");
     if(wynik(ocena(G, N)) == 1){
       break;
     }
+    
   }
 return 0;
 }
