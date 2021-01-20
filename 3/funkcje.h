@@ -24,4 +24,6 @@ int ile_ruchow(gra *G, int N);
 
 gra *wstaw(gra *G, int N, int wiersz, int kolumna);
 
+int negamax(gra *G, int glebokosc, int alfa, int beta, int N, int ile);
+
 #endif

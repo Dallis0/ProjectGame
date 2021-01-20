@@ -47,16 +47,16 @@ void wypisz_plansze(gra *G, int N){
 }
 
 
-listaruchow *wstaw_na_puste(gra *G, int wiersz , int kolumna){
+/*listaruchow *wstaw_na_puste(gra *G, int wiersz , int kolumna){
   listaruchow *glowa;
   glowa = (listaruchow*) malloc(sizeof(listaruchow));
   glowa->gdzie = (char*) malloc(sizeof(char));
   sprintf(glowa->gdzie, "%d %d", wiersz, kolumna);
 
   return glowa;
-}
+}*/
 
-listaruchow *ostatni_r(listaruchow *glowa)
+/*listaruchow *ostatni_r(listaruchow *glowa)
 {
     if(glowa != NULL){
         while(glowa->nast != NULL)
@@ -65,7 +65,7 @@ listaruchow *ostatni_r(listaruchow *glowa)
     }
     else 
         return NULL;
-}
+}*/
 
 listaruchow *ruchy_dostepne(gra *G, int N, int ile){
   int i,j;
@@ -87,11 +87,12 @@ listaruchow *ruchy_dostepne(gra *G, int N, int ile){
             r = r->nast;
           r->nast = lista;
         }
-        lista->gdzie = (char*) malloc(sizeof(char) *3);
-        sprintf(lista->gdzie, "%d %d", i, j);
+        lista->x = j;
+        lista->y = i;
+        // lista->gdzie = (char*) malloc(sizeof(char) *3);
+        // sprintf(lista->gdzie, "%d %d", i, j);
       }
     }
-  wypisz_ruchy(glowa, G, N);
   return glowa;
 }
 
@@ -100,7 +101,7 @@ void wypisz_ruchy(listaruchow *lista, gra *G, int N){
   int i,ile;
   ile = ile_ruchow(G, N);
   for(i=0;i<ile; i++){
-  printf("%s   ", r->gdzie);
+  printf("%d %d   ", r->y, r->x);
   r = r->nast;
   }
   printf("\n");
@@ -235,15 +236,24 @@ int ocena(gra *G, int N){
   return 0;
 }
 
-int negamax(gra *G, int glebokosc, int alfa, int beta, int N){
+int negamax(gra *G, int glebokosc, int alfa, int beta, int N, int ile){
   if (!glebokosc)
   return ocena(G, N);
 
   int nowaocena;
   int ocenawezla = -1;
-  
+  for(listaruchow *lr = ruchy_dostepne(G, N, ile), *ptr = lr; lr; lr = lr->nast, free(ptr),ptr = lr){
+    gra *dziecko = wstaw(G, N, ptr->x, ptr->y); 
+    nowaocena = -negamax(dziecko, glebokosc -1, alfa, beta, N, ile);
+    if(nowaocena > ocenawezla)
+      ocenawezla = nowaocena;
+    if(ocenawezla > alfa)
+      alfa = ocenawezla;
+    if(alfa > beta)
+      break;
+  }
 
-return 0;
+return ocenawezla;
 }
 
 int wynik(int a){

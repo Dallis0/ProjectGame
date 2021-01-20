@@ -14,6 +14,7 @@ int main(int argc, char **argv){
   G = utworz(N);
   wypisz_plansze(G, N);
   int wiersz, kolumna;
+  
   /*
  {//POLE BOJOWE / STREFA 51
   listaruchow *l = NULL;
@@ -28,6 +29,8 @@ return 0;
   for (int i = 0; i< pow(N, 2); i++){
     ile = ile_ruchow(G, N);
     lista = ruchy_dostepne(G, N, ile);
+    wypisz_ruchy(lista, G, N);
+    negamax(G, 2, -1, 1, N, ile);
     A:
     printf("Ruch:\n");
     scanf("%d %d", &wiersz, &kolumna);

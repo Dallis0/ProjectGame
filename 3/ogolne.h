@@ -12,6 +12,8 @@ typedef struct _gra{
 
 typedef struct _listaruchow{
    char *gdzie;
+   int x;
+   int y;
    struct _listaruchow *nast;
 
 } listaruchow;
