@@ -135,7 +135,7 @@ gra *wstaw(gra *G, int N, int wiersz, int kolumna){
       nowa->pole[i] = (char*) malloc(sizeof(char) * N);
     nowa->ruch = (char *) malloc(sizeof(char));*/
   nowa = G; 
-
+  
   if(G->ruch == "O"){
     nowa->pole[wiersz][kolumna] = 'O';
     nowa->ruch = "X";
@@ -144,6 +144,10 @@ gra *wstaw(gra *G, int N, int wiersz, int kolumna){
     nowa->pole[wiersz][kolumna] = 'X';
     nowa->ruch = "O";
   }
+  printf("Wstaw G\n");
+  wypisz_plansze(G, N);
+  printf("Wstaw nowa\n");
+  wypisz_plansze(nowa, N);
 
   return nowa;
 }
@@ -261,8 +265,10 @@ int negamax(gra *G, int glebokosc, int alfa, int beta, int N){
   int ocenawezla = -1;
   for(listaruchow *lr = ruchy_dostepne(G, N, ile), *ptr = lr; lr; lr = lr->nast, free(ptr),ptr = lr){
     wypisz_ruchy(lr, G, N);
-    gra *dziecko = G;
-    wstaw(dziecko, N, lr->y, lr->x); 
+    gra *dziecko = wstaw(G, N, lr->y, lr->x);
+    printf("Plansza G\n");
+    wypisz_plansze(G,N); 
+    printf("Plansza dziecko\n");
     wypisz_plansze(dziecko,N);
     printf("glebokosc %d\n", glebokosc);
     nowaocena = -negamax(dziecko, glebokosc -1, alfa, beta, N);
