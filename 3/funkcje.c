@@ -129,11 +129,11 @@ int ile_ruchow(gra *G, int N){
 
 gra *wstaw(gra *G, int N, int wiersz, int kolumna){
   gra *nowa; 
-    nowa = (gra*) malloc(sizeof(gra));
+    /*nowa = (gra*) malloc(sizeof(gra));
     nowa->pole = (char **) malloc(sizeof(char*) * N);
     for(int i=0;i<N;i++)
       nowa->pole[i] = (char*) malloc(sizeof(char) * N);
-    nowa->ruch = (char *) malloc(sizeof(char));
+    nowa->ruch = (char *) malloc(sizeof(char));*/
   nowa = G; 
 
   if(G->ruch == "O"){
@@ -168,7 +168,7 @@ int ocena(gra *G, int N){
       if(G->pole[0][k] == 'X')
         return 1;
       else if(G->pole[0][k] == 'O')
-        return 2;
+        return -1;
     }
   }
   
@@ -190,7 +190,7 @@ int ocena(gra *G, int N){
       if(G->pole[w][0] == 'X')
         return 1;
       if(G->pole[w][0] == 'O')
-        return 2;
+        return -1;
       else 
         printf("Nikt jeszcze nie wygrał\n");
     }
@@ -211,7 +211,7 @@ int ocena(gra *G, int N){
     if(G->pole[0][0] == 'X')
         return 1;
       else if(G->pole[0][0] == 'O')
-        return 2;
+        return -1;
   }
   }
 
@@ -230,20 +230,21 @@ int ocena(gra *G, int N){
       if(G->pole[N-1][0] == 'X')
         return 1;
       else if(G->pole[N-1][0] == 'O')
-        return 2;
+        return -1;
     }
   }
   return 0;
 }
 
 int negamax(gra *G, int glebokosc, int alfa, int beta, int N, int ile){
-  if (!glebokosc)
+  if(glebokosc <1)
   return ocena(G, N);
 
   int nowaocena;
   int ocenawezla = -1;
   for(listaruchow *lr = ruchy_dostepne(G, N, ile), *ptr = lr; lr; lr = lr->nast, free(ptr),ptr = lr){
     gra *dziecko = wstaw(G, N, ptr->x, ptr->y); 
+    wypisz_plansze(dziecko,N);
     nowaocena = -negamax(dziecko, glebokosc -1, alfa, beta, N, ile);
     if(nowaocena > ocenawezla)
       ocenawezla = nowaocena;
