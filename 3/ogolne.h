@@ -3,15 +3,15 @@
 
 #define X 1
 #define O 0
-// #define N 3
+#define N 3
 #define W 3
 
+
 typedef struct _gra{
-   char **pole, *ruch;
+   char pole[N][N], ruch[10];
 } gra;
 
 typedef struct _listaruchow{
-   char *gdzie;
    int x;
    int y;
    struct _listaruchow *nast;

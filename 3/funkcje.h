@@ -2,30 +2,27 @@
 #define funkcje_h
 #include "ogolne.h"
 
-gra *utworz(int N);
+
+gra utworz();
 
 void start(gra G);
 
-listaruchow *wstaw_na_puste(gra *G, int wiersz , int kolumna);
+void wypisz_ruchy(listaruchow *lista, gra *G);
 
-listaruchow *ostatni_r(listaruchow *glowa);
-
-void wypisz_ruchy(listaruchow *lista, gra *G, int N);
-
-listaruchow *ruchy_dostepne(gra *G, int N, int ile);
+listaruchow *ruchy_dostepne(gra *G);
 
 int wynik(int a);
 
-int ocena(gra *G, int N);
+int ocena(gra *G);
 
-void wypisz_plansze(gra *G, int N);
+void wypisz_plansze(gra *G);
 
-int ile_ruchow(gra *G, int N);
+int ile_ruchow(gra *G);
 
-gra *wstaw(gra *G, int N, int wiersz, int kolumna);
+gra wstaw(gra G, int wiersz, int kolumna);
 
-//gra *wstaw_negmax(gra *G, int N, int wiersz, int kolumna);
+int negamax(gra *G, int glebokosc, int alfa, int beta);
 
-int negamax(gra *G, int glebokosc, int alfa, int beta, int N);
+listaruchow *najlepszy_ruch(gra *G, int glebokosc, int alfa, int beta);
 
 #endif
