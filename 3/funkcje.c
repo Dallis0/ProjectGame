@@ -149,7 +149,7 @@ int ocena(gra *G){
     if(a == N-1)
     {
       if(G->pole[0][k] == ruch){
-        printf("%c is the winner\n", ruch);
+        //printf("%c is the winner\n", ruch);
         return 5;
       }
       else if(G->pole[0][k] != ruch)
@@ -173,7 +173,7 @@ int ocena(gra *G){
     if(a == N-1)
     {
       if(G->pole[w][0] == ruch){
-        printf("%c is the winner\n", ruch);
+        //printf("%c is the winner\n", ruch);
         return 5;
       }
       if(G->pole[w][0] != ruch)
@@ -196,7 +196,7 @@ int ocena(gra *G){
   if(a == N-1)
   {
     if(G->pole[0][0] == ruch){
-      printf("%c is the winner\n", ruch);
+      //printf("%c is the winner\n", ruch);
       return 5;
     }
       else if(G->pole[0][0] != ruch)
@@ -217,7 +217,7 @@ int ocena(gra *G){
   if(a == N-1)
     {
       if(G->pole[N-1][0] == ruch){
-        printf("%c is the winner\n", ruch);
+        //printf("%c is the winner\n", ruch);
         return 5;
       }
       else if(G->pole[N-1][0] != ruch)
@@ -238,7 +238,7 @@ int negamax(gra *G, int glebokosc, int alfa, int beta){
     gra dziecko = wstaw(*G, lr->y, lr->x);
     //printf("negamax %d\n", glebokosc);
     nowaocena = -negamax(&dziecko, glebokosc -1, -beta, -alfa);
-    printf("nowa ocena w negamaxie %d\n", nowaocena);
+    //printf("nowa ocena w negamaxie %d\n", nowaocena);
     if(nowaocena > ocenawezla)
       ocenawezla = nowaocena;
     if(ocenawezla > alfa)
@@ -252,6 +252,7 @@ return ocenawezla;
 
 listaruchow *najlepszy_ruch(gra *G, int glebokosc, int alfa, int beta){
   int ile = ile_ruchow(G);
+  //printf("ile = %d\n", ile);
   int nowaocena[ile]; 
   listaruchow naj_pole[ile];
   
@@ -261,17 +262,17 @@ listaruchow *najlepszy_ruch(gra *G, int glebokosc, int alfa, int beta){
   int maxocena;
     for(listaruchow *lr = ruchy_dostepne(G); lr; lr = lr->nast)
     {
-      printf("ruchy: %d %d\n", lr->x, lr->y);
+      //printf("ruchy: %d %d\n", lr->x, lr->y);
       i++;
       gra dziecko = wstaw(*G, lr->y, lr->x);
       nowaocena[i] = -negamax(&dziecko, glebokosc, alfa, beta);
-      printf("Przypisuję współrzędne x:%d y:%d to struktury nr %d\n", lr->x, lr->y, i);
+      //printf("Przypisuję współrzędne x:%d y:%d to struktury nr %d\n", lr->x, lr->y, i);
       naj_pole[i].x = lr->x;
       naj_pole[i].y = lr->y;
-      printf("naj_pole dla struktury %d x:%d y:%d\n", i, naj_pole[i].x, naj_pole[i].y);
+      //printf("naj_pole dla struktury %d x:%d y:%d\n", i, naj_pole[i].x, naj_pole[i].y);
     }
         i = 0;
-        printf("\ni:%d\n",i);
+        //printf("\ni:%d\n",i);
         j->x = naj_pole[i].x;
         j->y = naj_pole[i].y;
 
@@ -281,14 +282,14 @@ listaruchow *najlepszy_ruch(gra *G, int glebokosc, int alfa, int beta){
         //ocena ruchu[0] -> 0,0 ==15
         for(i;i<ile;i++)
         {
-            printf("Ocena dla x:%d y:%d =%d\n",naj_pole[i].x, naj_pole[i].y ,nowaocena[i]);
+            //printf("Ocena dla x:%d y:%d =%d\n",naj_pole[i].x, naj_pole[i].y ,nowaocena[i]);
             if(maxocena<nowaocena[i])
             {
-                printf("i=%d\n",i);
-                printf("Nowe naj_pole = x:%d y:%d\n",naj_pole[i].x, naj_pole[i].y);
+                //printf("i=%d\n",i);
+                //printf("Nowe naj_pole = x:%d y:%d\n",naj_pole[i].x, naj_pole[i].y);
                 j->x = naj_pole[i].x;
                 j->y = naj_pole[i].y;
-                printf("j = x:%d y:%d\n",j->x, j->y);
+                //printf("j = x:%d y:%d\n",j->x, j->y);
                 maxocena=nowaocena[i];
                 //printf("wieksze j: %d\n",j);
             }
@@ -299,16 +300,16 @@ listaruchow *najlepszy_ruch(gra *G, int glebokosc, int alfa, int beta){
 
 int wynik(int a){
     if(a == 1){
-      printf("Krzyżyk is the winner!\n");
+      printf("Krzyżyk wygrał!\n");
       return 1;
     }
     else if(a == -1){
-      printf("Kółko is the winner!\n");
+      printf("Kółko wygrało!\n");
       return 1;
     }
   
   else if(a == 0){
-    printf("Graj dalej!\n");
+    //printf("Graj dalej!\n");
     return 0;
   }
 }

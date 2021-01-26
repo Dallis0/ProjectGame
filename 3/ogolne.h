@@ -4,8 +4,6 @@
 #define X 1
 #define O 0
 #define N 3
-#define W 3
-
 
 typedef struct _gra{
    char pole[N][N], ruch[10];

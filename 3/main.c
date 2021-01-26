@@ -19,14 +19,14 @@ int main(int argc, char **argv){
 
 
   for (int i = 0; i< pow(N, 2); i++){
-    printf("for nr %d\n", i);
-    wypisz_plansze(&G);
+    //printf("for nr %d\n", i);
+    //wypisz_plansze(&G);
     ile = ile_ruchow(&G);
     lista = ruchy_dostepne(&G);
     wypisz_ruchy(lista, &G);
     if(strcmp(G.ruch, "X") == 0){
       printf("MAMY TO!\n");
-      listaruchow *naj = najlepszy_ruch(&G, 4, -100, 100);
+      listaruchow *naj = najlepszy_ruch(&G, ile-1, -100, 100);
       printf("Najlepszy ruch negamaxa x:%d y:%d\n", naj->x, naj->y);
       G = wstaw(G, naj->y, naj->x);
       wypisz_plansze(&G);
@@ -52,8 +52,20 @@ int main(int argc, char **argv){
     
     printf("\n\n");
     if(ocena(&G) == 5 || ocena(&G) == -5){
+      if(strcmp(G.ruch, "X")==0)
+      {
+        printf("Kółko wygrało!\n");
+      }     
+      if(strcmp(G.ruch, "O")==0)
+      {
+        printf("Krzyżyk wygrał!\n");
+      }
       break;
     }  
+  }
+  if(ocena(&G)==0)
+  {
+    printf("Remis!\n");
   }
 return 0;
 }
